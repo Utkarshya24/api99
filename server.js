@@ -31,6 +31,7 @@ import flipkartOrderManagementRouter from "./routes/flipkartOrderManagementRoute
 import flipkartInventoryManagementRouter from "./routes/flipkartInventoryManagementRoutes.js";
 // import shopifyRouter from "./routes/shopifyRoute.js";
 // import shopifyRouter from "./routes/shopifyRoutes.js";
+import amazonRoutes from "./routes/amazonRoutes.js";
 initializePassport(passport);
 
 // for .env file
@@ -38,28 +39,13 @@ initializePassport(passport);
 // App
 const app = express();
 
-//corst allowed origins
-const allowedOrigins =
-  process.env.MODE === "development"
-    ? ["http://localhost:3000"]
-    : ["https://unibazar.in", "https://backend-express-29ku.onrender.com","https://unibazar-4u6g14qyvw.dcdeploy.cloud"];
 
-// for middelware
 
-// CORS middleware
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Allow cookies and credentials
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
-  })
-);
+app.use(cors({
+  origin: 'https://3000-unibazar-frontendreact-ehpdpajnk7e.ws-us118.gitpod.io',  // Allow this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow specific HTTP methods
+  credentials: true,  // If you need cookies or credentials
+}));
 
 // app.use(
 //   cors({
@@ -126,6 +112,8 @@ app.use("/api/inventory", inventoryRouter);
 app.use("/api/shopify", shopifyRoute);
 app.use("/api/flipkart/order-management", flipkartOrderManagementRouter);
 app.use("/api/flipkart/inventory-management", flipkartInventoryManagementRouter);
+
+app.use("/api", amazonRoutes);
 
 
 // Schema for storing Flipkart tokens

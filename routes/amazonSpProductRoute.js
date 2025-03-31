@@ -90,4 +90,5 @@ productListRouter.route('/reports/document').post(getReportDocument);
 productListRouter.route('/financial').post(fetchFinancialTransactions);
 productListRouter.route('/analytics').post(getOrderAnalytics);
 
+
 export default productListRouter;
